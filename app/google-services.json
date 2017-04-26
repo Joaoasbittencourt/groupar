@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "213941019058",
+    "firebase_url": "https://sisdic-21b37.firebaseio.com",
+    "project_id": "sisdic-21b37",
+    "storage_bucket": "sisdic-21b37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213941019058:android:76ad0c873b8354dd",
+        "android_client_info": {
+          "package_name": "com.jotape.sisdic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213941019058-jb82l0dmk56qjgpepihhcr1r8gijmvjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtaYhd9cdPuEx0wLGvdp9XSuoe-fyy0xQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213941019058:android:3b5e099fc1869d82",
+        "android_client_info": {
+          "package_name": "com.jotape.sd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213941019058-jb82l0dmk56qjgpepihhcr1r8gijmvjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtaYhd9cdPuEx0wLGvdp9XSuoe-fyy0xQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
