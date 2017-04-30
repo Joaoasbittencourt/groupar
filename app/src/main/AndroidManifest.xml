@@ -31,7 +31,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jotape.sisdic.MainActivity" />
         </activity>
-        <activity android:name=".DesignarActivity"></activity>
+        <activity android:name=".DesignarActivity" />
+        <activity android:name=".Configs"></activity>
     </application>
 
 </manifest>

@@ -1,72 +1,50 @@
 package com.jotape.sisdic;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jotape.sisdic.CustomAdapters.MembroAdapter;
 import com.jotape.sisdic.CustomAdapters.TarefaAdapter;
 import com.jotape.sisdic.CustomDialogs.MembroInfoDialog;
 import com.jotape.sisdic.Modules.FirebaseWorker;
 import com.jotape.sisdic.Obj.Membro;
 import com.jotape.sisdic.Obj.Tarefa;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO na TarefaProfile: Mudar input do dialog -> designar responsável; de EditText para Lista dos membros.
 public class MainActivity extends AppCompatActivity {
+
 
     ListView listView;
 
-    //lista de membros.
     List<Membro> membersList = new ArrayList<Membro>();
-    ArrayAdapter<Membro> membroAdapter;
-
-    //lista de Tarefas.
     List<Tarefa> tarefasList  = new ArrayList<Tarefa>();
+
+    ArrayAdapter<Membro> membroAdapter;
     ArrayAdapter<Tarefa> tarefaAdapter;
 
-    //Firebase Database
-    FirebaseDatabase database= FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference();
 
-    //Tarefas Reference:
-    DatabaseReference tarefasRef = ref.child("Tarefas");
-
-    //Membros Reference:
-    DatabaseReference membrosRef = ref.child("Membros");
-
+    // BOTTOM NAVIGATION----------------------------------------------------------------------------
     BottomNavigationView navigation;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.
+            OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId())
+
             {
+
                 case R.id.navigation_home: //TAREFAS EM PROGRESSO
 
                     listView.setAdapter(tarefaAdapter);
@@ -86,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     });
-
-
                     return true;
 
                 case R.id.navigation_dashboard: // TAREFAS COMPLETAS
@@ -112,15 +88,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-
                     return true;
-
             }
             return false;
         }
 
     };
 
+    //ON CREATE-------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +113,10 @@ public class MainActivity extends AppCompatActivity {
 
         navigation.getMenu().performIdentifierAction(R.id.navigation_home,0);
 
+
     }
+
+    //ON RESUME-------------------------------------------------------------------------------------
     @Override
     protected void onResume(){
         super.onResume();
@@ -149,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Menu dropdown handlers.
+    // TOOLBAR MENU --------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options, menu);
@@ -168,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.addTarefaItem)
         {
             Intent i =  new Intent(getApplicationContext(),TarefaForm.class);
+            startActivity(i);
+            return true;
+        }
+
+        if (id == R.id.config)
+        {
+            Intent i =  new Intent(getApplicationContext(),Configs.class);
             startActivity(i);
             return true;
         }

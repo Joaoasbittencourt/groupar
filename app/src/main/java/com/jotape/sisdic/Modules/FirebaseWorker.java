@@ -3,14 +3,18 @@ package com.jotape.sisdic.Modules;
 import android.widget.Adapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jotape.sisdic.Obj.Membro;
 import com.jotape.sisdic.Obj.Tarefa;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -149,6 +153,25 @@ public class FirebaseWorker {
         }
 
     }
+
+    public static void pushVersionToText(final TextView text){
+
+
+        ref.child("VERSION").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+             text.setText((String) dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 
 
 }
