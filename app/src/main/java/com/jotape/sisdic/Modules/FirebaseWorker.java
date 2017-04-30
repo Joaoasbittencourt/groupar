@@ -3,7 +3,6 @@ package com.jotape.sisdic.Modules;
 import android.widget.Adapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -131,5 +130,25 @@ public class FirebaseWorker {
             }
         });
     }
+
+
+    public static void setTarefaPerson(String atvName, String persons){
+
+        DatabaseReference atvRef = ref
+                .child("Tarefas")
+                .child("Tarefas")
+                .child(atvName);
+
+        try{
+
+            atvRef.child("person").setValue(persons);
+            atvRef.child("status").setValue("Em progresso");
+
+        }catch (Exception e){
+            System.out.print(e.toString());
+        }
+
+    }
+
 
 }

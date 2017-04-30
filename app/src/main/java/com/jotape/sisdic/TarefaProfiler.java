@@ -5,13 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -159,36 +157,9 @@ public class TarefaProfiler extends AppCompatActivity {
         if (id == R.id.designarItem)
         {
 
-            DatabaseReference root = tarefasRef.child("Tarefas").child(atv_name);
-            final DatabaseReference respRef = root.child("person");
-            final DatabaseReference statusRef = root.child("status");
-
-            AlertDialog.Builder builder =  new AlertDialog.Builder(TarefaProfiler.this);
-            builder.setTitle("Designar Responsável");
-
-            final EditText nomeEtxt = new EditText(TarefaProfiler.this);
-            nomeEtxt.setHint("Nome");
-            builder.setView(nomeEtxt);
-
-            builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                    try{
-                        String nome = nomeEtxt.getText().toString();
-
-                        respRef.setValue(nome);
-                        statusRef.setValue("Em Progresso");
-                        personTxt.setText(nome);
-                        statusTxt.setText("Em Progresso");
-
-                        Toast.makeText(TarefaProfiler.this, "Agora "+nome + " é resposável por: " + atv_name , Toast.LENGTH_SHORT).show();
-                    }catch(Exception e){
-                        Toast.makeText(TarefaProfiler.this, "Não foi possível Realizar a operação", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            }).show();
+            Intent intent =  new Intent(getApplicationContext(),DesignarActivity.class);
+            intent.putExtra("tarefa",atv_name);
+            startActivity(intent);
         }
 
         if (id == R.id.finalizarItem)
