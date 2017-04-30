@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.jotape.sisdic.CustomAdapters.MembroAdapter;
 import com.jotape.sisdic.CustomAdapters.TarefaAdapter;
 import com.jotape.sisdic.CustomDialogs.MembroInfoDialog;
+import com.jotape.sisdic.Modules.FirebaseWorker;
 import com.jotape.sisdic.Obj.Membro;
 import com.jotape.sisdic.Obj.Tarefa;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home: //TAREFAS EM PROGRESSO
 
                     listView.setAdapter(tarefaAdapter);
-                    fetchTarefas(false);
+                    FirebaseWorker.populateTarefasList(false,tarefasList,listView,tarefaAdapter);
 
                     //Abre o Profile da atividade
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -91,15 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_dashboard: // TAREFAS COMPLETAS
 
-                    listView.setAdapter(tarefaAdapter);
-                    fetchTarefas(true);
+                    FirebaseWorker.populateTarefasList(true,tarefasList,listView,tarefaAdapter);
+
+
                     return true;
 
                 case R.id.navigation_notifications: //MEMBROS LIST
 
-                    listView.setAdapter(membroAdapter);
-
-                    fetchMembros();
+                    FirebaseWorker.populateMembrosList(membersList,listView,membroAdapter);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-        //instance dos adapters
         membroAdapter = new MembroAdapter(this,membersList);
         tarefaAdapter = new TarefaAdapter(this,tarefasList);
 
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         navigation.getMenu().performIdentifierAction(R.id.navigation_home,0);
-        fetchTarefas(false);
+        FirebaseWorker.populateTarefasList(false,tarefasList,listView,tarefaAdapter);
 
     }
 
@@ -175,119 +174,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void fetchMembros(){
-        membrosRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                membersList.clear();
-                for(DataSnapshot v : children){
-
-                    Membro m = v.getValue(Membro.class);
-                    membersList.add(m);
-
-                }
-
-                listView.setAdapter(membroAdapter);
-                membroAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                membersList.clear();
-                for(DataSnapshot v : children){
-
-                    Membro t = v.getValue(Membro.class);
-                    membersList.add(t);
-
-                }
-                listView.setAdapter(membroAdapter);
-                membroAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
-    public void fetchTarefas(final boolean isCompleted){
-
-        tarefasRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                tarefasList.clear();
-                for(DataSnapshot v : children){
-
-                    Tarefa t = v.getValue(Tarefa.class);
-                    if (isCompleted == t.isCompleted()){
-                        tarefasList.add(t);
-                    }
-
-                }
-
-                listView.setAdapter(tarefaAdapter);
-                tarefaAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                tarefasList.clear();
-                for(DataSnapshot v : children){
-
-                    Tarefa t = v.getValue(Tarefa.class);
-                    if (isCompleted == t.isCompleted()){
-                        tarefasList.add(t);
-                    }
-
-
-                }
-                listView.setAdapter(tarefaAdapter);
-                tarefaAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    tarefasList.clear();
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
 
 
 }

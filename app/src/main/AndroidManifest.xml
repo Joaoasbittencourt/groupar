@@ -23,15 +23,6 @@
         <activity android:name=".TarefaForm" />
         <activity android:name=".MembroForm" />
         <activity
-            android:name=".TarefaProfile"
-            android:label="@string/title_activity_tarefa_profile"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.jotape.sisdic.MainActivity" />
-        </activity>
-        <activity
             android:name=".TarefaProfiler"
             android:label="@string/title_activity_tarefa_profiler"
             android:parentActivityName=".MainActivity"
@@ -40,6 +31,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jotape.sisdic.MainActivity" />
         </activity>
+        <activity android:name=".DesignarActivity"></activity>
     </application>
 
 </manifest>
