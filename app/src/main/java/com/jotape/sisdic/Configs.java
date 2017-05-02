@@ -14,7 +14,7 @@ import com.jotape.sisdic.Modules.FirebaseWorker;
 
 public class Configs extends AppCompatActivity {
 
-    String VERSION = "0.7";
+    String VERSION = "0.71";
     TextView atual,latest,link;
 
     @Override
