@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,7 +37,11 @@
                 android:value="com.jotape.sisdic.MainActivity" />
         </activity>
         <activity android:name=".DesignarActivity" />
-        <activity android:name=".Configs"></activity>
+        <activity android:name=".Configs" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".Login"></activity>
     </application>
 
 </manifest>

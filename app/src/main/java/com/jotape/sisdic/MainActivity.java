@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.jotape.sisdic.CustomAdapters.MembroAdapter;
 import com.jotape.sisdic.CustomAdapters.TarefaAdapter;
 import com.jotape.sisdic.CustomDialogs.MembroInfoDialog;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayAdapter<Membro> membroAdapter;
     ArrayAdapter<Tarefa> tarefaAdapter;
+
+    FirebaseAuth.AuthStateListener AuthListener;
+    FirebaseAuth auth;
 
 
     // BOTTOM NAVIGATION----------------------------------------------------------------------------
@@ -102,6 +107,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Equipe UFBA IBRACON");
 
+        auth =  FirebaseAuth.getInstance();
+
+        AuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null){
+                    startActivity(new Intent(getApplicationContext(), Login.class));
+                }
+            }
+        };
+
+
         listView = (ListView) findViewById(R.id.listView);
 
         membroAdapter = new MembroAdapter(this,membersList);
@@ -114,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.getMenu().performIdentifierAction(R.id.navigation_home,0);
 
 
+
     }
 
     //ON RESUME-------------------------------------------------------------------------------------
@@ -123,6 +141,19 @@ public class MainActivity extends AppCompatActivity {
 
         navigation.getMenu().performIdentifierAction(R.id.navigation_home,0);
         FirebaseWorker.populateTarefasList(false,tarefasList,listView,tarefaAdapter);
+    }
+
+    //ON START-------------------------------------------------------------------------------------
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        auth.addAuthStateListener(AuthListener);
+    }
+
+    //ON BACKPRESSED-------------------------------------------------------------------------------------
+    @Override
+    public void onBackPressed() {
 
     }
 
@@ -156,6 +187,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
+
+        if (id == R.id.logoutItem)
+        {
+            auth.signOut();
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
