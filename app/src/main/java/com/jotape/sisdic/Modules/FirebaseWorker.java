@@ -1,10 +1,16 @@
 package com.jotape.sisdic.Modules;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.util.Log;
 import android.widget.Adapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +21,7 @@ import com.jotape.sisdic.Obj.Membro;
 import com.jotape.sisdic.Obj.Tarefa;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,7 +34,11 @@ public class FirebaseWorker {
     private static DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
 
-    public static void populateMembrosList(final List<Membro> membersList, final ListView listview, final Adapter ad){
+    public static void populateMembrosList(final List<Membro> membersList, final ListView listview, final Adapter ad, Context context){
+
+        final ProgressDialog progressDialog =  new ProgressDialog(context);
+        progressDialog.setMessage("Carregando dados...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         //Membros Reference:
         DatabaseReference membrosRef = ref.child("Membros");
@@ -45,6 +56,8 @@ public class FirebaseWorker {
 
                 }
                 listview.setAdapter((ListAdapter) ad);
+
+                progressDialog.dismiss();
             }
 
             @Override
@@ -59,6 +72,7 @@ public class FirebaseWorker {
 
                 }
                 listview.setAdapter((ListAdapter) ad);
+                progressDialog.dismiss();
             }
 
             @Override

@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity {
 
     EditText emailEtxt,passwordEtxt;
-    Button submitBtn;
+    Button submitBtn,signUpBtn;
     private FirebaseAuth Auth;
     FirebaseAuth.AuthStateListener AuthListener;
 
@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity {
         emailEtxt    = (EditText) findViewById(R.id.emailEtxt);
         passwordEtxt = (EditText) findViewById(R.id.passwordEtxt);
         submitBtn    = (Button) findViewById(R.id.submitBtn);
+        signUpBtn    = (Button) findViewById(R.id.signUpBtn);
 
         AuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -50,6 +51,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 startSignIn();
+            }
+        });
+
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

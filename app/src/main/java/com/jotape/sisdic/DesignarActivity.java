@@ -44,7 +44,7 @@ public class DesignarActivity extends AppCompatActivity {
 
         membroAdapter = new MembroAdapter(this,membersList);
         listView.setAdapter(membroAdapter);
-        FirebaseWorker.populateMembrosList(membersList,listView,membroAdapter);
+        FirebaseWorker.populateMembrosList(membersList,listView,membroAdapter,DesignarActivity.this);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

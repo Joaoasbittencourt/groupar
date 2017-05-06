@@ -74,13 +74,25 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard: // TAREFAS COMPLETAS
 
                     FirebaseWorker.populateTarefasList(true,tarefasList,listView,tarefaAdapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                            Intent in =  new Intent(getApplicationContext(),TarefaProfiler.class);
+                            in.putExtra("atv_name",tarefasList.get(i).getDescription());
+                            in.putExtra("date",tarefasList.get(i).getDate());
+                            in.putExtra("status",tarefasList.get(i).getStatus());
+                            in.putExtra("person",tarefasList.get(i).getPerson());
+                            startActivity(in);
+
+                        }
+                    });
 
                     return true;
 
                 case R.id.navigation_notifications: //MEMBROS LIST
 
-                    FirebaseWorker.populateMembrosList(membersList,listView,membroAdapter);
+                    FirebaseWorker.populateMembrosList(membersList,listView,membroAdapter,MainActivity.this);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override

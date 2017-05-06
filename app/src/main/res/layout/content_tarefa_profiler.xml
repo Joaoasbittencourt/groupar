@@ -19,7 +19,8 @@
         android:textColor="@android:color/holo_purple"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/personTxt"
+        android:layout_marginLeft="0dp" />
 
     <TextView
         android:id="@+id/limitDateTxt"
@@ -36,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Observações"
+        android:text="Comentários"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -95,7 +96,6 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        style="@android:style/Widget.Material.Light.ScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
