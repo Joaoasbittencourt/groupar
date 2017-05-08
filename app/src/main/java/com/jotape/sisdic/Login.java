@@ -1,5 +1,6 @@
 package com.jotape.sisdic;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -76,6 +77,12 @@ public class Login extends AppCompatActivity {
     }
 
     private void startSignIn(){
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Loading...");
+        progress.setIndeterminate(true);
+        progress.show();
+
         String email = emailEtxt.getText().toString();
         String password = passwordEtxt.getText().toString();
 
@@ -83,12 +90,14 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
+                progress.dismiss();
 
                 if(task.isSuccessful()){
 
                     Toast.makeText(Login.this, "Logado em Equipe UFBA IBRACON ", Toast.LENGTH_SHORT).show();
 
                 }else if(!task.isSuccessful()){
+
                     Toast.makeText(Login.this, "Senha ou usuário incorretos", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -33,17 +33,21 @@ public class FirebaseWorker {
 
     private static DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
-
     public static void populateMembrosList(final List<Membro> membersList, final ListView listview, final Adapter ad, Context context){
 
         final ProgressDialog progressDialog =  new ProgressDialog(context);
         progressDialog.setMessage("Carregando dados...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
 
         //Membros Reference:
         DatabaseReference membrosRef = ref.child("Membros");
 
+
+
         membrosRef.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -93,7 +97,14 @@ public class FirebaseWorker {
     }
 
 
-    public static void populateTarefasList(final boolean isCompleted, final List<Tarefa> tarefasList, final ListView listview, final Adapter ad){
+    public static void populateTarefasList(final boolean isCompleted, final List<Tarefa> tarefasList, final ListView listview, final Adapter ad,Context context){
+
+
+        final ProgressDialog progressDialog =  new ProgressDialog(context);
+        progressDialog.setMessage("Carregando dados...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
 
         //Tarefas Reference:
         DatabaseReference tarefasRef = ref.child("Tarefas");
@@ -113,6 +124,7 @@ public class FirebaseWorker {
                     }
                     listview.setAdapter((ListAdapter) ad);
                 }
+                progressDialog.dismiss();
 
             }
 
@@ -130,6 +142,7 @@ public class FirebaseWorker {
 
                 }
                 listview.setAdapter((ListAdapter) ad);
+                progressDialog.dismiss();
             }
 
             @Override

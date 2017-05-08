@@ -92,7 +92,6 @@ public class TarefaProfiler extends AppCompatActivity {
             public void onClick(View view) {
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(TarefaProfiler.this);
-                builder.setTitle("Comente:");
                 final EditText text = new EditText(TarefaProfiler.this);
                 text.setHint("Comentário");
                 builder.setView(text);
@@ -104,7 +103,7 @@ public class TarefaProfiler extends AppCompatActivity {
                         .child("Tarefas").child(atv_name);
 
 
-                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -239,21 +238,12 @@ public class TarefaProfiler extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void appendChat(DataSnapshot snap){
+    private void appendChat(DataSnapshot messageSnap){
 
+        String text =  (String) messageSnap.child("msg").getValue();
+        String user =  (String) messageSnap.child("user").getValue();
 
-        Iterator i  = snap.getChildren().iterator();
-
-        while(i.hasNext())
-        {
-
-            String text = (String) ((DataSnapshot)i.next()).getValue();
-            String user = (String) ((DataSnapshot)i.next()).getValue();
-
-            obsTxt.append(user+": "+text + " \n");
-
-        }
-
+        obsTxt.append(user+": "+text + " \n");
 
     }
 

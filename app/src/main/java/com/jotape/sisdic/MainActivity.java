@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home: //TAREFAS EM PROGRESSO
 
                     listView.setAdapter(tarefaAdapter);
-                    FirebaseWorker.populateTarefasList(false,tarefasList,listView,tarefaAdapter);
+                    FirebaseWorker.populateTarefasList(false,tarefasList,listView,tarefaAdapter,MainActivity.this);
 
                     //Abre o Profile da atividade
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_dashboard: // TAREFAS COMPLETAS
 
-                    FirebaseWorker.populateTarefasList(true,tarefasList,listView,tarefaAdapter);
+                    FirebaseWorker.populateTarefasList(true,tarefasList,listView,tarefaAdapter,MainActivity.this);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         navigation.getMenu().performIdentifierAction(R.id.navigation_home,0);
-        FirebaseWorker.populateTarefasList(false,tarefasList,listView,tarefaAdapter);
+        FirebaseWorker.populateTarefasList(false,tarefasList,listView,tarefaAdapter,MainActivity.this);
     }
 
     //ON START-------------------------------------------------------------------------------------

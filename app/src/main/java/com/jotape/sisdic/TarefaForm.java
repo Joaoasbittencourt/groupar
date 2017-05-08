@@ -2,6 +2,8 @@ package com.jotape.sisdic;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.jotape.sisdic.Modules.DateManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -73,11 +78,24 @@ public class TarefaForm extends AppCompatActivity {
 
                 try{
 
+                    final ProgressDialog progressDialog =  new ProgressDialog(TarefaForm.this);
+                    progressDialog.setMessage("Carregando dados...");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.show();
+
+
                     Map<String,Object> container = new HashMap<String,Object>();
                     container.put(t.getDescription(),t);
 
-                    tarefasRef.child("Tarefas").updateChildren(container);
-                    finish();
+                    tarefasRef.child("Tarefas").updateChildren(container).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            progressDialog.dismiss();
+                            finish();
+                        }
+                    });
+
 
                 }catch (Exception e){
                     e.printStackTrace();
