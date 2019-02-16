@@ -1,2 +1,2 @@
 # groupar
-Mobile android application to group work
+Mobile android app to manage people tasks on projects
